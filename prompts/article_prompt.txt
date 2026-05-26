@@ -1,0 +1,9 @@
+Write a complete SEO optimized article for:
+{keyword}
+
+Use:
+- H2 and H3 headings
+- FAQs
+- tables
+- bullet points
+- conclusion

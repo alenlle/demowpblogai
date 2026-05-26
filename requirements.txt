@@ -1,0 +1,10 @@
+requests
+beautifulsoup4
+lxml
+pillow
+markdown
+python-dotenv
+schedule
+readability-lxml
+fake-useragent
+playwright
