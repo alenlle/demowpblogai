@@ -11,7 +11,8 @@ from seo.serp_scraper import scrape_serp
 from generators.content_generator import (
     generate_title,
     generate_article,
-    generate_meta
+    generate_meta_title,
+    generate_meta_desc
 )
 
 from generators.image_generator import generate_feature_image
@@ -37,7 +38,6 @@ def run_workflow():
     serp = scrape_serp(keyword)
 
     title = generate_title(keyword)
-
     article = generate_article(keyword, serp)
 
     article = add_internal_links(article)
@@ -45,10 +45,8 @@ def run_workflow():
 
     html_content = markdown(article)
 
-    meta = generate_meta(keyword)
-
-    meta_title = title[:60]
-    meta_desc = meta[:150]
+    meta_title = generate_meta_title(keyword)[:60]
+    meta_desc = generate_meta_desc(keyword)[:150]
 
     image_path = generate_feature_image(title)
 
@@ -62,4 +60,6 @@ def run_workflow():
 
     mark_processed(keyword_id)
 
-    log(f"Published successfully: {result['link']}")
+    # FIX: safely access result keys
+    post_link = result.get("link", result.get("guid", {}).get("rendered", "unknown"))
+    log(f"Published successfully: {post_link}")

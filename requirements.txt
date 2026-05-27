@@ -7,4 +7,3 @@ python-dotenv
 schedule
 readability-lxml
 fake-useragent
-playwright

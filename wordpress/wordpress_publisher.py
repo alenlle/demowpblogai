@@ -16,19 +16,19 @@ def upload_image(image_path):
 
     with open(image_path, "rb") as img:
         headers = {
-            "Content-Disposition": f"attachment; filename={image_path.name}"
+            "Content-Disposition": f"attachment; filename={image_path.name}",
+            "Content-Type": "image/webp"  # FIX: required for WP REST API
         }
 
         response = requests.post(
             media_url,
             headers=headers,
-            files={"file": img},
+            data=img,          # FIX: use data= not files= when Content-Type is set manually
             auth=auth,
             timeout=60
         )
 
     response.raise_for_status()
-
     return response.json()["id"]
 
 def publish_post(title, content, meta_title, meta_desc, featured_image):
@@ -55,5 +55,4 @@ def publish_post(title, content, meta_title, meta_desc, featured_image):
     )
 
     response.raise_for_status()
-
     return response.json()

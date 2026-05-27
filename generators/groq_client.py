@@ -4,13 +4,16 @@ from config.settings import GROQ_API_KEY
 API_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 def ask_groq(prompt):
+    if not GROQ_API_KEY:
+        raise ValueError("GROQ_API_KEY is not set. Check your environment variables.")
+
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json"
     }
 
     payload = {
-        "model": "llama3-70b-8192",
+        "model": "llama-3.3-70b-versatile",  # FIX: updated model name
         "messages": [
             {"role": "user", "content": prompt}
         ],
